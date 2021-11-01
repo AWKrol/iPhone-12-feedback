@@ -9,6 +9,8 @@ import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Iphone12Page {
     private WebDriver driver;
@@ -17,14 +19,26 @@ public class Iphone12Page {
         this.driver = driver;
     }
 
-    @FindBy(css = "[href=\"https://www.mvideo.ru/products/smartfon-apple-iphone-12-64gb-productred-mgj73ru-a-30052887\"]")
+    @FindBy(css = "[href=\"https://www.mvideo.ru/products/smartfon-apple-iphone-12-mini-64gb-black-mgdx3ru-a-30052870\"]")
     private WebElement iPhone12Red;
 
-    @FindBy(css = "[class=\"rating-reviews ng-star-inserted\"]")
+    @FindBy(tagName = "mvideo-product-rating")
     private WebElement buttonFeedback;
 
     @FindBy(css = "[class=\"content with-overflow\"]")
     private WebElement oneFeedback;
+
+    @FindBy(css = "[class=\"show-all mv-main-button--secondary mv-main-button--large mv-button mv-main-button\"]")
+    private WebElement allFeedback;
+
+    @FindBy(css = "[class=\"show-all mv-main-button--large" +
+            " mv-main-button--secondary mv-button mv-main-button ng-star-inserted\"]")
+    private WebElement lastFeedback;
+
+    @FindBy(css = "[class=\"title__count\"]")
+    private WebElement quantityFeedback;
+
+
 
     public void iPhone12Red64gb() {
         iPhone12Red.click(); // выбираем iPhone 12 red 64gb
@@ -48,6 +62,23 @@ public class Iphone12Page {
         }catch (IOException e) {
             System.out.println(e);
         }
+    }
+
+    public List<WebElement> nameFeedbackList() {
+        List<WebElement> list = new LinkedList<>();
+        return  list =  driver.findElements(By.cssSelector("[class=\"head__name\"]"));
+    }
+
+    public void allFeedback() {
+        allFeedback.click();  // кликаем на все отзывы
+    }
+
+    public void lastFeedback() {
+        lastFeedback.click();
+    }
+
+    public String quantityFeedback() {
+        return quantityFeedback.getText();
     }
 
 }
